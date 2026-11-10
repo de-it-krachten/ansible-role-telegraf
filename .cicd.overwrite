@@ -135,5 +135,10 @@ generic:
 molecule:
   requirements:
     roles_extra: []
-
-
+  converge:
+    vars:
+      influxdb_url: http://127.0.0.1:8080
+      influxdb_token: token
+      influxdb_org: org
+      influxdb_bucket: bucket
+      influxdb_skip_tls_verify: true

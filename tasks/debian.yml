@@ -10,6 +10,7 @@
     name:
       - curl
       - gnupg
+      - python3-debian
     state: present
     update_cache: true
 
@@ -22,13 +23,15 @@
     executable: /bin/bash
     creates: "{{ telegraf_influx_repo_keyring }}"
 
+- debug: var=telegraf_influx_deb_suite
+
 - name: Add InfluxData apt repository
   ansible.builtin.deb822_repository:
     name: influxdata
     types: [deb]
     uris: "{{ telegraf_influx_repo_url }}"
-    suites: "{{ ansible_distribution_release }}"
-    components: [stable]
+    suites: "{{ telegraf_influx_deb_suite }}"
+    components: ["{{ telegraf_influx_deb_component }}"]
     signed_by: "{{ telegraf_influx_repo_keyring }}"
     state: present
 

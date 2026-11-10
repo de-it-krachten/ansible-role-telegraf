@@ -47,10 +47,18 @@ Note:
 ### defaults/main.yml
 <pre><code>
 telegraf_influx_repo_key_url: "https://repos.influxdata.com/influxdata-archive.key"
+
 telegraf_influx_repo_keyring: "/etc/apt/keyrings/influxdata-archive.gpg"
-telegraf_influx_repo_url: "https://repos.influxdata.com/ubuntu"
+
+telegraf_influx_repo_url: "https://repos.influxdata.com/debian"
+telegraf_influx_deb_suite: "stable"
+telegraf_influx_deb_component: "main"
+
 telegraf_influx_rpm_repo_url: "https://repos.influxdata.com"
+
 telegraf_config_path: "/etc/telegraf/telegraf.conf"
+
+telegraf_interval: 10s
 </pre></code>
 
 
@@ -62,6 +70,13 @@ telegraf_config_path: "/etc/telegraf/telegraf.conf"
 - name: sample playbook for role 'telegraf'
   hosts: all
   become: 'yes'
+  vars:
+    molecule_driver: '{{ lookup(''env'', ''MOLECULE_DRIVER_NAME'') }}'
+    influxdb_url: http://127.0.0.1:8080
+    influxdb_token: token
+    influxdb_org: org
+    influxdb_bucket: bucket
+    influxdb_skip_tls_verify: true
   tasks:
     - name: Include role 'telegraf'
       ansible.builtin.include_role:

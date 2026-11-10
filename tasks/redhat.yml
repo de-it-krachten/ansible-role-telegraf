@@ -4,7 +4,7 @@
   ansible.builtin.yum_repository:
     name: influxdata
     description: InfluxData Repository - Stable
-    baseurl: "{{ telegraf_influx_rpm_repo_url }}/rhel/{{ ansible_distribution_major_version }}/$basearch/stable"
+    baseurl: "{{ telegraf_influx_rpm_repo_url }}/rhel/{{ ansible_facts['distribution_major_version'] }}/$basearch/stable"
     gpgcheck: true
     gpgkey: "{{ telegraf_influx_repo_key_url }}"
     enabled: true

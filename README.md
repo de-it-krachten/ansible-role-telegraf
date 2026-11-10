@@ -59,6 +59,8 @@ telegraf_influx_rpm_repo_url: "https://repos.influxdata.com"
 telegraf_config_path: "/etc/telegraf/telegraf.conf"
 
 telegraf_interval: 10s
+
+telegraf_enable_sensors: false
 </pre></code>
 
 

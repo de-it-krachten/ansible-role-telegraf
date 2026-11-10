@@ -1,0 +1,39 @@
+---
+- name: Ensure apt keyring directory exists
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+
+- name: Ensure prerequisites for the InfluxData repo are installed
+  ansible.builtin.apt:
+    name:
+      - curl
+      - gnupg
+    state: present
+    update_cache: true
+
+- name: Import InfluxData repo signing key
+  ansible.builtin.shell: >
+    set -o pipefail &&
+    curl -fsSL {{ telegraf_influx_repo_key_url }} |
+    gpg --dearmor -o {{ telegraf_influx_repo_keyring }}
+  args:
+    executable: /bin/bash
+    creates: "{{ telegraf_influx_repo_keyring }}"
+
+- name: Add InfluxData apt repository
+  ansible.builtin.deb822_repository:
+    name: influxdata
+    types: [deb]
+    uris: "{{ telegraf_influx_repo_url }}"
+    suites: "{{ ansible_distribution_release }}"
+    components: [stable]
+    signed_by: "{{ telegraf_influx_repo_keyring }}"
+    state: present
+
+- name: Install Telegraf
+  ansible.builtin.apt:
+    name: telegraf
+    state: present
+    update_cache: true

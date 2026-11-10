@@ -1,0 +1,6 @@
+---
+telegraf_influx_repo_key_url: "https://repos.influxdata.com/influxdata-archive.key"
+telegraf_influx_repo_keyring: "/etc/apt/keyrings/influxdata-archive.gpg"
+telegraf_influx_repo_url: "https://repos.influxdata.com/ubuntu"
+telegraf_influx_rpm_repo_url: "https://repos.influxdata.com"
+telegraf_config_path: "/etc/telegraf/telegraf.conf"

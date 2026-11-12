@@ -15,3 +15,5 @@ telegraf_config_path: "/etc/telegraf/telegraf.conf"
 telegraf_interval: 10s
 
 telegraf_enable_sensors: false
+
+influxdb_skip_tls_verify: false
